@@ -9,6 +9,8 @@ sysinfo.txt
 *.stackdump
 *.info
 *.db
+*.sln
+*.userprefs
  
 # ===================================== #
 # Visual Studio / MonoDevelop generated #

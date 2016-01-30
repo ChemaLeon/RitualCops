@@ -332,17 +332,20 @@ public class BezierCurve : MonoBehaviour {
 	/// </param>
 	public static Vector3 GetPoint(BezierPoint p1, BezierPoint p2, float t)
 	{
-		if(p1.handle2 != Vector3.zero)
-		{
-			if(p2.handle1 != Vector3.zero) return GetCubicCurvePoint(p1.position, p1.globalHandle2, p2.globalHandle1, p2.position, t);
-			else return GetQuadraticCurvePoint(p1.position, p1.globalHandle2, p2.position, t);
+		if (p1 != null) {
+			if(p1.handle2 != Vector3.zero)
+			{
+				if(p2.handle1 != Vector3.zero) return GetCubicCurvePoint(p1.position, p1.globalHandle2, p2.globalHandle1, p2.position, t);
+				else return GetQuadraticCurvePoint(p1.position, p1.globalHandle2, p2.position, t);
+			} else {
+				if(p2.handle1 != Vector3.zero) return GetQuadraticCurvePoint(p1.position, p2.globalHandle1, p2.position, t);
+				else return GetLinearPoint(p1.position, p2.position, t);
+			}	
+		} else {
+			return Vector3.zero;
 		}
 		
-		else
-		{
-			if(p2.handle1 != Vector3.zero) return GetQuadraticCurvePoint(p1.position, p2.globalHandle1, p2.position, t);
-			else return GetLinearPoint(p1.position, p2.position, t);
-		}	
+
 	}
 
 	/// <summary>

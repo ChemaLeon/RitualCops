@@ -98,7 +98,10 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void MovePlayer() {
-		Rigidbody.velocity = new Vector3(Input.GetAxis("Horizontal_1"), 0f, Input.GetAxis("Vertical_1")).normalized*movementSpeed;
+		Vector3 cameraPosition = new Vector3(GameLogic.MainCamera.transform.position.x, 0f, GameLogic.MainCamera.transform.position.z);
+		Vector3 playerPosition = new Vector3(transform.position.x, 0f, transform.position.z);
+		Vector3 relationToCamera = (playerPosition-cameraPosition).normalized;
+		Rigidbody.velocity = (GameLogic.MainCamera.transform.right*Input.GetAxis("Horizontal_1")+relationToCamera*Input.GetAxis("Vertical_1"))*movementSpeed;
 	}
 
 	void RotatePlayer() {
@@ -107,7 +110,8 @@ public class PlayerControl : MonoBehaviour {
 		float TargetRotationAngle = Vector2.Angle(new Vector2(0f,1f), new Vector2(RightStickHorizontal, RightStickVertical).normalized);
 		if (RightStickHorizontal < 0f) TargetRotationAngle = -TargetRotationAngle;
 		if (Mathf.Abs(RightStickHorizontal) > 0.1f || Mathf.Abs(RightStickVertical) > 0.1f) {
-			transform.rotation = Quaternion.Euler(new Vector3(0f, TargetRotationAngle, 0f));
+			Quaternion cameraRotation = Quaternion.Euler(0f, GameLogic.MainCamera.transform.rotation.eulerAngles.y, 0f);
+			transform.rotation = cameraRotation*Quaternion.Euler(new Vector3(0f, TargetRotationAngle, 0f));
 		}
 	}
 }

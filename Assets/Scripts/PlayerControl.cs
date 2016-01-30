@@ -8,30 +8,43 @@ public class PlayerControl : MonoBehaviour {
 	public float movementSpeed = 3f;
 	public float fireCooldown = 1f;
 	public int magazineSize = 8;
+	public float knockbackFactor = 20f;
 	public GameObject bulletObject;
 
 	private Rigidbody Rigidbody;
 	private string HorizontalAxisName;
 	private string VerticalAxisName;
-	private string FireAxisName;
+	private string FireButtonName;
+	private string ReloadButtonName;
 	private float currentCooldown = 0f;
 	private int currentMagazineSize;
+	private GameLogic GameLogic;
+	private PlayerState currentState;
+
+	public enum PlayerState {
+		IDLE,
+		RELOADING,
+		NULL
+	}
 
 	void SetupPlatformDependentInput() {
 		if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.OSXPlayer) {
 			HorizontalAxisName = "MacLookHorizontal_"+PlayerNumber.ToString();
 			VerticalAxisName = "MacLookVertical_"+PlayerNumber.ToString();
-			FireAxisName = "MacFire_"+PlayerNumber.ToString();
+			FireButtonName = "MacFire_"+PlayerNumber.ToString();
+			ReloadButtonName = "MacReload_"+PlayerNumber.ToString();
 		} else {
 			HorizontalAxisName = "LookHorizontal_"+PlayerNumber.ToString();
 			VerticalAxisName = "LookVertical_"+PlayerNumber.ToString();
-			FireAxisName = "Fire_"+PlayerNumber.ToString();
+			FireButtonName = "Fire_"+PlayerNumber.ToString();
+			ReloadButtonName = "Reload_"+PlayerNumber.ToString();
 		}
 	}
 
 	void Awake() {
 		SetupPlatformDependentInput();
 		Rigidbody = GetComponent<Rigidbody>();
+		GameLogic = GameObject.FindObjectOfType<GameLogic>();
 	}
 
 	void Start () {
@@ -41,9 +54,15 @@ public class PlayerControl : MonoBehaviour {
 	void Update () {
 		MovePlayer();
 		RotatePlayer();
-		if (Input.GetAxis(FireAxisName) == 1f && currentCooldown <= 0f) {
+		if (Input.GetButtonDown(ReloadButtonName)) {
+			Reload();
+		}
+		if (Input.GetButton(FireButtonName) && currentCooldown <= 0f && currentState == PlayerState.IDLE) {
 			Fire();
 			currentCooldown = fireCooldown;
+		}
+		if (Input.GetButtonUp(FireButtonName)) {
+			currentCooldown = 0f;
 		}
 		currentCooldown -= Time.deltaTime;
 		if (currentCooldown <= 0f) currentCooldown = 0f;
@@ -52,8 +71,30 @@ public class PlayerControl : MonoBehaviour {
 	void Fire() {
 		if (currentMagazineSize > 0) {
 			currentMagazineSize--;
+			if (currentMagazineSize <= 0) {
+				GameLogic.CanvasManager.ReloadAnimator.SetBool("Enabled", true);
+			}
+			GameLogic.CanvasManager.BulletBar.SetBulletIconStatus(currentMagazineSize,false);
 			Instantiate(bulletObject, transform.position, transform.rotation);
+			GameLogic.CameraShake.Shake(0.1f, 0.15f);
+			Rigidbody.AddForce(-transform.forward*knockbackFactor);
+		} else {
+			Reload();
 		}
+	}
+
+	void Reload() {
+		if (currentState != PlayerState.RELOADING) {
+			currentState = PlayerState.RELOADING;
+			GameLogic.CanvasManager.ReloadBarAnimator.SetTrigger("Enabled");
+		}
+	}
+
+	public void FinishReload() {
+		currentState = PlayerState.IDLE;
+		GameLogic.CanvasManager.BulletBar.ResetBulletIcons();
+		currentMagazineSize = magazineSize;
+		GameLogic.CanvasManager.ReloadAnimator.SetBool("Enabled", false);
 	}
 
 	void MovePlayer() {

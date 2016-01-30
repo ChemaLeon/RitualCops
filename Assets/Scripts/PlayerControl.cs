@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerControl : MonoBehaviour {
 
 	public int PlayerNumber = 1;
+	public float movementSpeed = 3f;
 
 	private Rigidbody _rigidbody;
 
@@ -16,6 +17,6 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void Update () {
-		_rigidbody.velocity = new Vector3(Input.GetAxis("Horizontal_1"), 0f, Input.GetAxis("Vertical_1"));
+		_rigidbody.velocity = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")).normalized*movementSpeed;
 	}
 }

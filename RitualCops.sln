@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{3222FB5F-20F6-EB79-41B6-61C63200F237}") = "ritualCops", "Assembly-CSharp.csproj", "{B4029E0B-5175-1E71-92AF-F02789EBE203}"
 EndProject
+Project("{3222FB5F-20F6-EB79-41B6-61C63200F237}") = "ritualCops", "Assembly-CSharp-Editor.csproj", "{1313A9A6-E324-FA8A-78A9-36725C0A9D7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{B4029E0B-5175-1E71-92AF-F02789EBE203}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4029E0B-5175-1E71-92AF-F02789EBE203}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4029E0B-5175-1E71-92AF-F02789EBE203}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1313A9A6-E324-FA8A-78A9-36725C0A9D7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1313A9A6-E324-FA8A-78A9-36725C0A9D7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1313A9A6-E324-FA8A-78A9-36725C0A9D7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1313A9A6-E324-FA8A-78A9-36725C0A9D7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

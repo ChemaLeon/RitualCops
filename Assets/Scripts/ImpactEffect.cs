@@ -20,6 +20,7 @@ public class ImpactEffect : MonoBehaviour {
 			BulletObject obj = other.collider.GetComponent<BulletObject>();
 			if (obj != null) Destroy(obj.gameObject);
 			//Destroy(gameObject);
+			if(meatyParticleObject != null)
 			Instantiate(meatyParticleObject, transform.position, meatyParticleObject.transform.rotation);
 
 		}

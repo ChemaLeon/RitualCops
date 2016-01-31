@@ -130,6 +130,7 @@ public class EnemyControl : MonoBehaviour {
 			BulletObject obj = other.collider.GetComponent<BulletObject>();
 			if (obj != null) Destroy(obj.gameObject);
 			logic.audioServices.PlaySFX("Squish");
+			logic.RandomKillSFX();
 			Destroy(gameObject);
 			if (makeRegdoll){
                 Instantiate(meatyParticleObject, transform.position, meatyParticleObject.transform.rotation);

@@ -13,9 +13,31 @@ public class GameLogic : MonoBehaviour {
 	public AudioServices audioServices;
 	public bool levelFinished = false;
 
+	private float lastVoiceCountdown = 5f;
+	private float voiceCountdown = 0f;
+
 	void Start() {
 		audioServices = GameObject.FindObjectOfType<AudioServices>();
 		audioServices.PlayBGM("BGM");
+	}
+
+	void Update() {
+		voiceCountdown -= Time.deltaTime;
+		if (voiceCountdown <= 0f) voiceCountdown = 0f;
+	}
+
+	public void RandomKillSFX() {
+		if (voiceCountdown <= 0f && Random.Range(0,100) <= 30) {
+			audioServices.PlaySFX("Kill"+Random.Range(1,13), 0.95f, 1f);
+			voiceCountdown = lastVoiceCountdown;
+		}
+	}
+
+	public void RandomDamageSFX() {
+		if (voiceCountdown <= 0f && Random.Range(0,100) <= 30) {
+			audioServices.PlaySFX("Damage"+Random.Range(1,6));
+			voiceCountdown = lastVoiceCountdown;
+		}
 	}
 
 	public void InitializePlayerList() {

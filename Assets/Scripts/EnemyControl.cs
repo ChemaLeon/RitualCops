@@ -27,7 +27,7 @@ public class EnemyControl : MonoBehaviour {
 	}
 
 	void Awake() {
-		logic = GameLogic.Instance;
+		logic = GameObject.FindObjectOfType<GameLogic>();
 		Rigidbody = GetComponent<Rigidbody>();
 		currentEnemyState = EnemyState.CHASING;
 		logic.EnemyControls.Add(this);

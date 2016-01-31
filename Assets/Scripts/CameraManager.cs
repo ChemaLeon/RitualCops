@@ -12,7 +12,7 @@ public class CameraManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GameLogic = GameLogic.Instance;
+		GameLogic = GameObject.FindObjectOfType<GameLogic>();
 	}
 	
 	// Update is called once per frame

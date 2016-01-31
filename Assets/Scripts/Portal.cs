@@ -8,6 +8,6 @@ public class Portal : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		GameLogic.Instance.levelFinished = true;
+		GameObject.FindObjectOfType<GameLogic>().levelFinished = true;
 	}
 }

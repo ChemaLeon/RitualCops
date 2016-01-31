@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-public class GameLogic : Singleton<GameLogic> {
+public class GameLogic : MonoBehaviour {
 	
 	public Camera mainCam;
 	public CameraShake CameraShake;

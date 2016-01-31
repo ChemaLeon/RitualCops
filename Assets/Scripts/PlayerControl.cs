@@ -48,7 +48,7 @@ public class PlayerControl : MonoBehaviour {
 	void Awake() {
 		SetupPlatformDependentInput();
 		Rigidbody = GetComponent<Rigidbody>();
-		logic = GameLogic.Instance;
+		logic = GameObject.FindObjectOfType<GameLogic>();
 		logic.InitializePlayerList();
 		logic.PlayerControls.Add(this);
 	}
@@ -74,6 +74,8 @@ public class PlayerControl : MonoBehaviour {
 			if (Input.GetButtonUp(FireButtonName)) {
 				currentCooldown = 0f;
 			}
+		} else {
+			Rigidbody.velocity = Vector3.zero;
 		}
 		currentCooldown -= Time.deltaTime;
 		if (currentCooldown <= 0f) currentCooldown = 0f;

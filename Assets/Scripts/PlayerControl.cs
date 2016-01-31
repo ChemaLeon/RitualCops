@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour {
 
@@ -11,6 +12,7 @@ public class PlayerControl : MonoBehaviour {
 	public float knockbackFactor = 20f;
 	public GameObject bulletObject;
 	public Transform bulletSpawnPoint;
+	public GameObject meatyParticleObject;
 
 	private Rigidbody Rigidbody;
 	private string HorizontalAxisName;
@@ -112,7 +114,17 @@ public class PlayerControl : MonoBehaviour {
 		if (RightStickHorizontal < 0f) TargetRotationAngle = -TargetRotationAngle;
 		if (Mathf.Abs(RightStickHorizontal) > 0.1f || Mathf.Abs(RightStickVertical) > 0.1f) {
 			Quaternion cameraRotation = Quaternion.Euler(0f, GameLogic.MainCamera.transform.rotation.eulerAngles.y, 0f);
-			transform.rotation = cameraRotation*Quaternion.Euler(new Vector3(0f,TargetRotationAngle, 0f));
+			transform.rotation = cameraRotation*Quaternion.Euler(new Vector3(0f, TargetRotationAngle, 0f));
+		}
+	}
+
+	void OnCollisionEnter(Collision other) {
+		if (other.collider.tag == "EnemyBullet") {
+			BulletObject obj = other.collider.GetComponent<BulletObject>();
+			if (obj != null) Destroy(obj.gameObject);
+			Instantiate(meatyParticleObject, transform.position, meatyParticleObject.transform.rotation);
+			GameLogic.RespawnLevel();
+			gameObject.SetActive(false);
 		}
 	}
 }

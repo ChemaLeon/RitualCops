@@ -15,4 +15,10 @@ public class BulletObject : MonoBehaviour {
 	public void Destroy() {
 		Destroy(gameObject);
 	}
+
+	public void OnCollisionEnter(Collision other) {
+		if (other.collider.tag == "Environment") {
+			Destroy();
+		}
+	}
 }

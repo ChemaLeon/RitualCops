@@ -26,7 +26,7 @@ public class Portal : MonoBehaviour {
 		if (logic.CanvasManager.currentLevel < 6) {
 			logic.CanvasManager.LoadScene("Level_0"+(logic.CanvasManager.currentLevel+1));
 		} else {
-			logic.CanvasManager.LoadScene("Start");
+			logic.CanvasManager.LoadScene("Score");
 		}
 	}
 }

@@ -13,7 +13,7 @@ public class EnemyControl : MonoBehaviour {
 	private float shootingFrequency = 400f;
 	private float dodgeScale = 0.05f;
 
-	private GameLogic GameLogic;
+	private GameLogic logic;
 	private PlayerControl target;
 	private Rigidbody Rigidbody;
 	private EnemyState currentEnemyState;
@@ -27,13 +27,14 @@ public class EnemyControl : MonoBehaviour {
 	}
 
 	void Awake() {
-		GameLogic = GameObject.FindObjectOfType<GameLogic>();
+		logic = GameLogic.Instance;
 		Rigidbody = GetComponent<Rigidbody>();
 		currentEnemyState = EnemyState.CHASING;
+		logic.EnemyControls.Add(this);
 	}
 
-	void Start () {
-		target = GameLogic.PlayerControls[0];
+	public void SetTarget(PlayerControl newTarget) {
+		target = newTarget;
 	}
 
 	void Update () {
@@ -58,7 +59,7 @@ public class EnemyControl : MonoBehaviour {
 						GameObject enemyBullet = Instantiate(bulletObject, transform.position+(transform.forward*2.5f), transform.rotation) as GameObject;
 						enemyBullet.tag = "EnemyBullet";
 						currentCooldown = fireCooldown;
-						GameLogic.CameraShake.Shake(0.1f, 0.15f);
+						logic.CameraShake.Shake(0.1f, 0.15f);
 					}
 					currentCooldown -= Time.deltaTime;
 					if (currentCooldown <= 0f) currentCooldown = 0f;
@@ -95,6 +96,11 @@ public class EnemyControl : MonoBehaviour {
                 Instantiate(meatyParticleObject, transform.position, meatyParticleObject.transform.rotation);
                 makeRegdoll = false;
             }
+			RoundManager round = GameObject.FindObjectOfType<RoundManager>();
+			if (round != null) {
+				round.EnemyDied(this);
+				logic.EnemyControls.Remove(this);
+			}
 		}
 	}
 }

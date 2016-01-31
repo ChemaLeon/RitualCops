@@ -1,45 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class RoundManager : MonoBehaviour {
 
-	public GameObject[] enemies;
-	bool everybodyDied = false;
+	private List<EnemyControl> enemies;
 	public GameObject portal;
 
 	// Use this for initialization
 	void Start () {
-
-		portal.SetActive(false);
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		checkEnemies();
-		if(everybodyDied)
-		{
-			activatePortal();
+		enemies = new List<EnemyControl>();
+		foreach (EnemyControl enemy in GameObject.FindObjectsOfType<EnemyControl>()) {
+			enemies.Add(enemy);
 		}
-	
+	}	
+
+	public void EnemyDied(EnemyControl who) {
+		enemies.Remove(who);
+		checkEnemies();
 	}
 
-	void activatePortal()
-	{
+	void activatePortal() {
 		portal.SetActive(true);
 	}
 
-	void checkEnemies()
-	{
-		foreach(var enemy in enemies)
-		{
-			if(enemy != null)
-			{
-				return;
-			}
-
+	void checkEnemies() {
+		if (enemies.Count <= 0) {
+			activatePortal();
 		}
-		everybodyDied = true;
 	}
 		
 }

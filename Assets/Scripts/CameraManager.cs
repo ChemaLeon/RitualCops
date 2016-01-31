@@ -12,20 +12,24 @@ public class CameraManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GameLogic = GameObject.FindObjectOfType<GameLogic>();
+		GameLogic = GameLogic.Instance;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 averagePlayerPosition = new Vector3();
-		foreach(Transform pTransform in playerTransforms) {
-			if (pTransform != null)
-			averagePlayerPosition += pTransform.position;
+		if (!GameLogic.levelFinished) {
+			Vector3 averagePlayerPosition = new Vector3();
+			foreach(Transform pTransform in playerTransforms) {
+				if (pTransform != null)
+				averagePlayerPosition += pTransform.position;
+			}
+
+			averagePlayerPosition *= 1f/playerTransforms.Length;
+			transform.position = mainPath.GetPointAt(averagePlayerPosition.x/maxLength);
+			transform.LookAt(averagePlayerPosition);
+		} else {
+			transform.position = Vector3.Lerp(transform.position, GameLogic.PlayerControls[0].targetCamPos.position, 2f*Time.deltaTime);
+			transform.rotation = Quaternion.Lerp(transform.rotation, GameLogic.PlayerControls[0].targetCamPos.rotation, 2f*Time.deltaTime);
 		}
-
-		averagePlayerPosition *= 1f/playerTransforms.Length;
-		transform.position = mainPath.GetPointAt(averagePlayerPosition.x/maxLength);
-		transform.LookAt(averagePlayerPosition);
-
 	}
 }

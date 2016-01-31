@@ -6,7 +6,7 @@ public class ReloadBar : MonoBehaviour {
 	private GameLogic GameLogic;
 
 	void Awake() {
-		GameLogic = GameObject.FindObjectOfType<GameLogic>();
+		GameLogic = GameLogic.Instance;
 	}
 
 	public void FinishReloading() {

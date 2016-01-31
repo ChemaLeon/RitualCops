@@ -10,7 +10,13 @@ public class GameLogic : MonoBehaviour {
 	public List<PlayerControl> PlayerControls;
 	public List<EnemyControl> EnemyControls;
 	public CanvasManager CanvasManager;
+	public AudioServices audioServices;
 	public bool levelFinished = false;
+
+	void Start() {
+		audioServices = GameObject.FindObjectOfType<AudioServices>();
+		audioServices.PlayBGM("BGM");
+	}
 
 	public void InitializePlayerList() {
 		PlayerControls = new List<PlayerControl>();

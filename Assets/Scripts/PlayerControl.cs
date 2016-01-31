@@ -84,6 +84,7 @@ public class PlayerControl : MonoBehaviour {
 
 	void Fire() {
 		if (currentMagazineSize > 0) {
+			logic.audioServices.PlaySFX("GunShot_04", Random.Range(0.7f, 1.3f), 1f);
 			currentMagazineSize--;
 			if (currentMagazineSize <= 0) {
 				logic.CanvasManager.ReloadAnimator.SetBool("Enabled", true);
@@ -93,12 +94,14 @@ public class PlayerControl : MonoBehaviour {
 			logic.CameraShake.Shake(0.1f, 0.15f);
 			Rigidbody.AddForce(-transform.forward*knockbackFactor);
 		} else {
+			logic.audioServices.PlaySFX("EmptyMag");
 			Reload();
 		}
 	}
 
 	void Reload() {
 		if (currentState != PlayerState.RELOADING) {
+			logic.audioServices.PlaySFX("Reload");
 			currentState = PlayerState.RELOADING;
 			logic.CanvasManager.ReloadBarAnimator.SetTrigger("Enabled");
 		}

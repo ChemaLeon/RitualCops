@@ -19,8 +19,10 @@ public class CameraManager : MonoBehaviour {
 	void Update () {
 		Vector3 averagePlayerPosition = new Vector3();
 		foreach(Transform pTransform in playerTransforms) {
+			if (pTransform != null)
 			averagePlayerPosition += pTransform.position;
 		}
+
 		averagePlayerPosition *= 1f/playerTransforms.Length;
 		transform.position = mainPath.GetPointAt(averagePlayerPosition.x/maxLength);
 		transform.LookAt(averagePlayerPosition);

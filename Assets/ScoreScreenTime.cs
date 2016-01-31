@@ -4,13 +4,13 @@ using UnityEngine.UI;
 
 public class ScoreScreenTime : MonoBehaviour {
 
-	private Text textComponent;
+	public Text textComponent;
 
 	// Use this for initialization
-	void Start () {
-		textComponent.GetComponent<Text>();
+	void Update () {
 		TimerObject tObject = GameObject.FindObjectOfType<TimerObject>();
 		if (tObject != null) {
+			tObject.timerEnabled = false;
 			textComponent.text = TimeToStringFormat(tObject.totalTime);
 		}
 	}

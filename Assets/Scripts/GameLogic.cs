@@ -26,7 +26,7 @@ public class GameLogic : MonoBehaviour {
 
 	IEnumerator Respawn() {
 		yield return new WaitForSeconds(1f);
-		SceneManager.LoadScene("Level_01");
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		PlayerControls = new List<PlayerControl>();
 		EnemyControls = new List<EnemyControl>();
 	}

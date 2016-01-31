@@ -3,13 +3,11 @@ using System.Collections;
 
 public class Portal : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
+	void Start() {
+		gameObject.SetActive(false);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void OnTriggerEnter(Collider other) {
+		GameObject.FindObjectOfType<GameLogic>().levelFinished = true;
 	}
 }

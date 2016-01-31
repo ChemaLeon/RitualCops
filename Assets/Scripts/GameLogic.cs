@@ -1,13 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class GameLogic : MonoBehaviour {
 	
-	public Camera MainCamera;
+	public Camera mainCam;
 	public CameraShake CameraShake;
-	public PlayerControl[] PlayerControls;
+	public List<PlayerControl> PlayerControls;
+	public List<EnemyControl> EnemyControls;
 	public CanvasManager CanvasManager;
+	public bool levelFinished = false;
+
+	public void InitializePlayerList() {
+		PlayerControls = new List<PlayerControl>();
+	}
+
+	public void InitializeEnemyList() {
+		EnemyControls = new List<EnemyControl>();
+	}
 
 	public void RespawnLevel() {
 		StartCoroutine(Respawn());
@@ -15,6 +26,8 @@ public class GameLogic : MonoBehaviour {
 
 	IEnumerator Respawn() {
 		yield return new WaitForSeconds(1f);
-		SceneManager.LoadScene("Prototype");
+		SceneManager.LoadScene("Level_01");
+		PlayerControls = new List<PlayerControl>();
+		EnemyControls = new List<EnemyControl>();
 	}
 }

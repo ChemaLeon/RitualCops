@@ -112,7 +112,7 @@ public class PlayerControl : MonoBehaviour {
 		if (RightStickHorizontal < 0f) TargetRotationAngle = -TargetRotationAngle;
 		if (Mathf.Abs(RightStickHorizontal) > 0.1f || Mathf.Abs(RightStickVertical) > 0.1f) {
 			Quaternion cameraRotation = Quaternion.Euler(0f, GameLogic.MainCamera.transform.rotation.eulerAngles.y, 0f);
-			transform.rotation = cameraRotation*Quaternion.Euler(new Vector3(0f, TargetRotationAngle, 0f));
+			transform.rotation = cameraRotation*Quaternion.Euler(new Vector3(0f,TargetRotationAngle, 0f));
 		}
 	}
 }

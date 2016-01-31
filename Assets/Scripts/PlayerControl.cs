@@ -137,6 +137,7 @@ public class PlayerControl : MonoBehaviour {
 			BulletObject obj = other.collider.GetComponent<BulletObject>();
 			if (obj != null) Destroy(obj.gameObject);
 			Instantiate(meatyParticleObject, transform.position, meatyParticleObject.transform.rotation);
+			logic.RandomDamageSFX();
 			logic.RespawnLevel();
 			gameObject.SetActive(false);
 		}

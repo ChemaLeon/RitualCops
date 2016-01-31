@@ -15,7 +15,7 @@ sysinfo.txt
 *.sln
 Library/
 obj/
-ProjectVersion.txt
+*.txt
 Thumbs.db.meta
  
 # ===================================== #

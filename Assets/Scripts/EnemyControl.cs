@@ -49,6 +49,7 @@ public class EnemyControl : MonoBehaviour {
 		if (target != null) {
 			switch(currentEnemyState) {
 			case(EnemyState.IDLE): {
+					Rigidbody.velocity = Vector3.zero;
 					if (Vector3.Distance(transform.position, target.transform.position) < minDistanceToAwaken) {
 						currentEnemyState = EnemyState.CHASING;
 					}
@@ -110,7 +111,7 @@ public class EnemyControl : MonoBehaviour {
 	IEnumerator Fire() {
 		shootParticle.Play(true);
 		chargingShot = true;
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(1f);
 		GameObject enemyBullet = Instantiate(bulletObject, shootFrom.position, transform.rotation) as GameObject;
 		enemyBullet.tag = "EnemyBullet";
 		logic.CameraShake.Shake(0.1f, 0.15f);

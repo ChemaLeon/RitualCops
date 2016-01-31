@@ -9,6 +9,7 @@ public class EnemyControl : MonoBehaviour {
 	private GameLogic GameLogic;
 	private PlayerControl target;
 	private Rigidbody Rigidbody;
+	bool makeRegdoll = true;
 
 	void Awake() {
 		GameLogic = GameObject.FindObjectOfType<GameLogic>();
@@ -29,7 +30,10 @@ public class EnemyControl : MonoBehaviour {
 			BulletObject obj = other.collider.GetComponent<BulletObject>();
 			if (obj != null) Destroy(obj.gameObject);
 			Destroy(gameObject);
-			Instantiate(meatyParticleObject, transform.position, meatyParticleObject.transform.rotation);
+			if(makeRegdoll){
+				Instantiate(meatyParticleObject, transform.position, meatyParticleObject.transform.rotation);
+				makeRegdoll = false;
+			}
 		}
 	}
 }

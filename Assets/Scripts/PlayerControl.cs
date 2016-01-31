@@ -118,7 +118,7 @@ public class PlayerControl : MonoBehaviour {
 		Vector3 cameraPosition = new Vector3(logic.mainCam.transform.position.x, 0f, logic.mainCam.transform.position.z);
 		Vector3 playerPosition = new Vector3(transform.position.x, 0f, transform.position.z);
 		Vector3 relationToCamera = (playerPosition-cameraPosition).normalized;
-		Rigidbody.velocity = (logic.mainCam.transform.right*Input.GetAxis("Horizontal_1")+relationToCamera*Input.GetAxis("Vertical_1"))*movementSpeed;
+		Rigidbody.velocity = (logic.mainCam.transform.right*Input.GetAxis("Horizontal_"+PlayerNumber)+relationToCamera*Input.GetAxis("Vertical_"+PlayerNumber))*movementSpeed;
 	}
 
 	void RotatePlayer() {

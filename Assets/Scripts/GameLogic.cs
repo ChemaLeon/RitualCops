@@ -27,7 +27,7 @@ public class GameLogic : MonoBehaviour {
 	}
 
 	public void RandomKillSFX() {
-		if (voiceCountdown <= 0f && Random.Range(0,100) <= 90) {
+		if (voiceCountdown <= 0f && Random.Range(0,100) <= 10) {
 			audioServices.PlaySFX("Kill"+Random.Range(1,13), 0.95f, 1f);
 			voiceCountdown = lastVoiceCountdown;
 		}

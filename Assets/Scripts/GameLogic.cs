@@ -15,6 +15,6 @@ public class GameLogic : MonoBehaviour {
 
 	IEnumerator Respawn() {
 		yield return new WaitForSeconds(1f);
-		SceneManager.LoadScene("Level_01");
+		SceneManager.LoadScene("Prototype");
 	}
 }

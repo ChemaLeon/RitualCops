@@ -21,9 +21,9 @@ public class Portal : MonoBehaviour {
 	IEnumerator LoadNextScene() {
 		logic.levelFinished = true;
 		logic.PlayerControls[0].targetCamPosAnim.SetTrigger("Enabled");
-		yield return new WaitForSeconds(6f);
+		yield return new WaitForSeconds(7f);
 		logic.CanvasManager.SetFade(true);
-		if (logic.CanvasManager.currentLevel < 7) {
+		if (logic.CanvasManager.currentLevel < 6) {
 			logic.CanvasManager.LoadScene("Level_0"+(logic.CanvasManager.currentLevel+1));
 		} else {
 			logic.CanvasManager.LoadScene("Start");

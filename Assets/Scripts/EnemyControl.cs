@@ -109,9 +109,11 @@ public class EnemyControl : MonoBehaviour {
 	}
 
 	IEnumerator Fire() {
+		logic.audioServices.PlaySFX("PreShot");
 		shootParticle.Play(true);
 		chargingShot = true;
 		yield return new WaitForSeconds(1f);
+		logic.audioServices.PlaySFX("FireBall");
 		GameObject enemyBullet = Instantiate(bulletObject, shootFrom.position, transform.rotation) as GameObject;
 		enemyBullet.tag = "EnemyBullet";
 		logic.CameraShake.Shake(0.1f, 0.15f);
@@ -122,6 +124,7 @@ public class EnemyControl : MonoBehaviour {
 		if (other.collider.tag == "Bullet") {
 			BulletObject obj = other.collider.GetComponent<BulletObject>();
 			if (obj != null) Destroy(obj.gameObject);
+			logic.audioServices.PlaySFX("Squish");
 			Destroy(gameObject);
 			if (makeRegdoll){
                 Instantiate(meatyParticleObject, transform.position, meatyParticleObject.transform.rotation);

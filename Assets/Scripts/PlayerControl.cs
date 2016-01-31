@@ -14,6 +14,7 @@ public class PlayerControl : MonoBehaviour {
 	public Transform bulletSpawnPoint;
 	public GameObject meatyParticleObject;
 	public Transform targetCamPos;
+	public Animator targetCamPosAnim;
 
 	private Rigidbody Rigidbody;
 	private string HorizontalAxisName;

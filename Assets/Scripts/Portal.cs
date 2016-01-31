@@ -8,6 +8,8 @@ public class Portal : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		GameObject.FindObjectOfType<GameLogic>().levelFinished = true;
+		GameLogic logic = GameObject.FindObjectOfType<GameLogic>();
+		logic.levelFinished = true;
+		logic.PlayerControls[0].targetCamPosAnim.SetTrigger("Enabled");
 	}
 }

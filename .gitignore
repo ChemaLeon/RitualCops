@@ -11,6 +11,10 @@ sysinfo.txt
 *.db
 *.sln
 *.userprefs
+*.csproj
+*.sln
+Library/
+obj/
  
 # ===================================== #
 # Visual Studio / MonoDevelop generated #

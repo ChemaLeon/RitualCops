@@ -4,6 +4,7 @@ using System.Collections;
 public class ReloadBar : MonoBehaviour {
 
 	private GameLogic GameLogic;
+	public int playerNumber;
 
 	void Awake() {
 		GameLogic = GameObject.FindObjectOfType<GameLogic>();
@@ -11,6 +12,6 @@ public class ReloadBar : MonoBehaviour {
 
 	public void FinishReloading() {
 		//TODO: Per Player Reloading?
-		GameLogic.PlayerControls[0].FinishReload();
+		GameLogic.PlayerControls[playerNumber].FinishReload();
 	}
 }

@@ -22,6 +22,17 @@ public class GameLogic : MonoBehaviour {
 	}
 
 	void Update() {
+		if (PlayerControls.Count > 1) {
+			foreach(EnemyControl enemy in EnemyControls) {
+				float distance1 = Vector3.Distance(enemy.transform.position, PlayerControls[0].transform.position); 
+				float distance2 = Vector3.Distance(enemy.transform.position, PlayerControls[1].transform.position);
+				if (distance1 < distance2) {
+					enemy.SetTarget(PlayerControls[0]);
+				} else {
+					enemy.SetTarget(PlayerControls[1]);
+				}
+			}
+		}
 		voiceCountdown -= Time.deltaTime;
 		if (voiceCountdown <= 0f) voiceCountdown = 0f;
 	}

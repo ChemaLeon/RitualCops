@@ -20,4 +20,12 @@ public class MenuCanvas : MonoBehaviour {
 	public void SetFade(bool value) {
 		fadeAnimator.SetBool("Enabled", value);
 	}
+
+	public void Exit() {
+		#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false;
+		#else
+		Application.Quit();
+		#endif
+	}
 }

@@ -5,6 +5,7 @@ public class TimerObject : MonoBehaviour {
 
 	private CanvasManager canvas;
 	public float totalTime = 0f;
+	public bool timerEnabled = true;
 
 	// Use this for initialization
 	void Start () {
@@ -13,7 +14,9 @@ public class TimerObject : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		totalTime+=Time.deltaTime;
+		if (timerEnabled) {
+			totalTime+=Time.deltaTime;
+		}
 		if (canvas == null) {
 			canvas = GameObject.FindObjectOfType<CanvasManager>();
 		} else {

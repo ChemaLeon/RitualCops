@@ -11,9 +11,9 @@ public class EnemyControl : MonoBehaviour {
 	public ParticleSystem shootParticle;
 
 	private bool makeRegdoll = true;
-	private float dodgingFrequency = 800f;
+	private float dodgingFrequency = 850f;
 	private float shootingFrequency = 400f;
-	private float dodgeScale = 0.2f;
+	private float dodgeScale = 0.3f;
 	private float minDistanceToShoot = 12f;
 	private float minDistanceToStop = 8f;
 	private float minDistanceToAwaken = 20f;
@@ -24,6 +24,7 @@ public class EnemyControl : MonoBehaviour {
 	private EnemyState currentEnemyState;
 	private float currentCooldown;
 	private bool chargingShot = false;
+	private Vector3 dodgeDirection;
 
 	public enum EnemyState {
 		CHASING,
@@ -44,8 +45,10 @@ public class EnemyControl : MonoBehaviour {
 		target = newTarget;
 	}
 
+
+
 	void FixedUpdate () {
-		Vector3 dodgeDirection = transform.right;
+		
 		if (target != null) {
 			switch(currentEnemyState) {
 			case(EnemyState.IDLE): {
@@ -63,6 +66,7 @@ public class EnemyControl : MonoBehaviour {
 					} else if (Random.Range(0f,1000f-dodgingFrequency) < 1f) {
 						currentCooldown = dodgeScale;
 						if (Random.Range(0,2) == 1) dodgeDirection = -transform.right;
+						else dodgeDirection = transform.right;
 						currentEnemyState = EnemyState.DODGING;
 					} else if (Vector3.Distance(transform.position, target.transform.position) > minDistanceToAwaken) {
 						currentEnemyState = EnemyState.IDLE;
@@ -85,6 +89,7 @@ public class EnemyControl : MonoBehaviour {
 						} else if (Random.Range(0f,1000f-dodgingFrequency) < 1f) {
 							currentCooldown = dodgeScale;
 							if (Random.Range(0,2) == 1) dodgeDirection = -transform.right;
+							else dodgeDirection = transform.right;
 							currentEnemyState = EnemyState.DODGING;
 						}
 					}
@@ -95,7 +100,7 @@ public class EnemyControl : MonoBehaviour {
 				break;
 			case(EnemyState.DODGING): {
 					transform.LookAt(target.gameObject.transform);
-					Rigidbody.velocity = movementSpeed*10f*dodgeDirection;
+					Rigidbody.velocity = movementSpeed*5f*dodgeDirection;
 					currentCooldown -= Time.deltaTime;
 					if (currentCooldown <= 0f) {
 						currentCooldown = 0f;

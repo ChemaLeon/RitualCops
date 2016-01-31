@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class AudioServices : MonoBehaviour
+public class AudioServices : Singleton<AudioServices>
 {
 	public Dictionary<string, AudioClip> dict_SoundEffects;
 	public Dictionary<string, AudioClip> dict_BackgroundMusic;

@@ -28,8 +28,8 @@ public class CameraManager : MonoBehaviour {
 			transform.position = mainPath.GetPointAt(averagePlayerPosition.x/maxLength);
 			transform.LookAt(averagePlayerPosition);
 		} else {
-			transform.position = Vector3.Lerp(transform.position, GameLogic.PlayerControls[0].targetCamPos.position, 2f*Time.deltaTime);
-			transform.rotation = Quaternion.Lerp(transform.rotation, GameLogic.PlayerControls[0].targetCamPos.rotation, 2f*Time.deltaTime);
+			transform.position = Vector3.Lerp(transform.position, GameLogic.PlayerControls[0].targetCamPos.position, 4f*Time.deltaTime);
+			transform.rotation = Quaternion.Lerp(transform.rotation, GameLogic.PlayerControls[0].targetCamPos.rotation, 4f*Time.deltaTime);
 		}
 	}
 }

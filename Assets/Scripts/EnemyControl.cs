@@ -9,8 +9,8 @@ public class EnemyControl : MonoBehaviour {
 	public float fireCooldown = 1f;
 
 	private bool makeRegdoll = true;
-	private float dodgingFrequency = 500f;
-	private float shootingFrequency = 300f;
+	private float dodgingFrequency = 600f;
+	private float shootingFrequency = 400f;
 	private float dodgeScale = 0.05f;
 
 	private GameLogic GameLogic;

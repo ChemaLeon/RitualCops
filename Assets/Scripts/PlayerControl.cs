@@ -50,7 +50,7 @@ public class PlayerControl : MonoBehaviour {
 		SetupPlatformDependentInput();
 		Rigidbody = GetComponent<Rigidbody>();
 		logic = GameObject.FindObjectOfType<GameLogic>();
-		logic.InitializePlayerList();
+		//logic.InitializePlayerList();
 		logic.PlayerControls.Add(this);
 	}
 
@@ -87,9 +87,9 @@ public class PlayerControl : MonoBehaviour {
 			logic.audioServices.PlaySFX("GunShot_04", Random.Range(0.7f, 1.3f), 1f);
 			currentMagazineSize--;
 			if (currentMagazineSize <= 0) {
-				logic.CanvasManager.ReloadAnimator.SetBool("Enabled", true);
+				logic.CanvasManager.ReloadAnimator[PlayerNumber-1].SetBool("Enabled", true);
 			}
-			logic.CanvasManager.BulletBar.SetBulletIconStatus(currentMagazineSize,false);
+			logic.CanvasManager.BulletBars[PlayerNumber-1].SetBulletIconStatus(currentMagazineSize,false);
 			Instantiate(bulletObject, bulletSpawnPoint.position, transform.rotation);
 			logic.CameraShake.Shake(0.1f, 0.15f);
 			Rigidbody.AddForce(-transform.forward*knockbackFactor);
@@ -103,22 +103,22 @@ public class PlayerControl : MonoBehaviour {
 		if (currentState != PlayerState.RELOADING) {
 			logic.audioServices.PlaySFX("Reload");
 			currentState = PlayerState.RELOADING;
-			logic.CanvasManager.ReloadBarAnimator.SetTrigger("Enabled");
+			logic.CanvasManager.ReloadBarAnimator[PlayerNumber-1].SetTrigger("Enabled");
 		}
 	}
 
 	public void FinishReload() {
 		currentState = PlayerState.IDLE;
-		logic.CanvasManager.BulletBar.ResetBulletIcons();
+		logic.CanvasManager.BulletBars[PlayerNumber-1].ResetBulletIcons();
 		currentMagazineSize = magazineSize;
-		logic.CanvasManager.ReloadAnimator.SetBool("Enabled", false);
+		logic.CanvasManager.ReloadAnimator[PlayerNumber-1].SetBool("Enabled", false);
 	}
 
 	void MovePlayer() {
 		Vector3 cameraPosition = new Vector3(logic.mainCam.transform.position.x, 0f, logic.mainCam.transform.position.z);
 		Vector3 playerPosition = new Vector3(transform.position.x, 0f, transform.position.z);
 		Vector3 relationToCamera = (playerPosition-cameraPosition).normalized;
-		Rigidbody.velocity = (logic.mainCam.transform.right*Input.GetAxis("Horizontal_1")+relationToCamera*Input.GetAxis("Vertical_1"))*movementSpeed;
+		Rigidbody.velocity = (logic.mainCam.transform.right*Input.GetAxis("Horizontal_"+PlayerNumber)+relationToCamera*Input.GetAxis("Vertical_"+PlayerNumber))*movementSpeed;
 	}
 
 	void RotatePlayer() {
